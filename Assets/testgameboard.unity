@@ -461,6 +461,7 @@ GameObject:
   m_Component:
   - component: {fileID: 783092313}
   - component: {fileID: 783092312}
+  - component: {fileID: 783092314}
   m_Layer: 0
   m_Name: gameManager
   m_TagString: Untagged
@@ -494,6 +495,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &783092314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 783092311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf8f270b9d69a7942bea83fd0def1f97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &828350961
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,6 +516,7 @@ GameObject:
   - component: {fileID: 828350962}
   - component: {fileID: 828350964}
   - component: {fileID: 828350963}
+  - component: {fileID: 828350965}
   m_Layer: 5
   m_Name: right
   m_TagString: Untagged
@@ -562,6 +575,28 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 828350961}
+--- !u!114 &828350965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 828350961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1297475563, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 1
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 0
 --- !u!1 &1150444733
 GameObject:
   m_ObjectHideFlags: 0
@@ -768,11 +803,11 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 1
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
   m_ChildControlHeight: 0
 --- !u!114 &1269071657
 MonoBehaviour:
@@ -859,7 +894,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 4
+  m_ChildAlignment: 1
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
@@ -1185,6 +1220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selected: {fileID: 0}
+  generalDivision: {fileID: 2071703346}
 --- !u!4 &1631957052
 Transform:
   m_ObjectHideFlags: 0
@@ -1227,6 +1263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   commander: {fileID: 0}
   subordinates: []
+  possibleOrders: []
 --- !u!4 &2071703347
 Transform:
   m_ObjectHideFlags: 0
