@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class Player {
 
-    List<Division> divisions { get; set; }
+    List<DivisionController> divisions { get; set; }
     
 }

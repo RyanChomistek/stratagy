@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DivisionController : MonoBehaviour {
-
-    public Division division;
-    public float speed { get { return division.speed; } set { division.speed = value; } }
+    public DivisionController commander;
+    public List<DivisionController> subordinates;
+    public List<Soldier> soldiers { get; set; }
+    public float speed { get; set; }
+    public List<Order> possibleOrders;
     // Use this for initialization
     void Start () {
 		
@@ -15,4 +17,10 @@ public class DivisionController : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public virtual void initOrders()
+    {
+        possibleOrders.Add(new Move(null,new Vector3()));
+
+    }
 }

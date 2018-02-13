@@ -8,4 +8,9 @@ public class playerDivisionController : DivisionController
     {
         GameManager.instance.localPlayer.select(this);
     }
+
+    void Start()
+    {
+        base.initOrders();
+    }
 }
