@@ -12,6 +12,7 @@ public class LocalPlayerController : MonoBehaviour {
     bool UIwaitingForSelection = false;
     public delegate void responseToUI(DivisionController division);
     responseToUI UIResponse;
+
     // Use this for initialization
     void Start () {
         instance = this;
