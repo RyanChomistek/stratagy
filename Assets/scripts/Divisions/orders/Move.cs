@@ -15,11 +15,14 @@ public class Move : Order {
 
     public override void start()
     {
-        Debug.Log("starting move");
+        moveToTarget();
+    }
+
+    public void moveToTarget()
+    {
         Vector3 currLoc = controller.transform.position;
         Vector3 dir = (finish - currLoc).normalized;
         Vector3 moveVec = dir * controller.speed;
-        Debug.Log(moveVec);
         //set start moving twords finish
         controller.GetComponent<Rigidbody>().velocity = moveVec;
     }
@@ -27,6 +30,11 @@ public class Move : Order {
     public override void pause()
     {
         
+    }
+
+    public override void end()
+    {
+        controller.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
     }
 
     public override void onClickedInUI()
@@ -37,7 +45,7 @@ public class Move : Order {
 
     public void onClickReturn(Vector3 mousePos)
     {
-        finish = mousePos;
+        finish = new Vector3(mousePos.x, mousePos.y);
         //clear ui
         OrderDisplayManager.instance.clearOrders();
         commanderSendingOrder.sendOrderTo(controller, this);
@@ -50,6 +58,12 @@ public class Move : Order {
 
     public override bool testIfFinished()
     {
+        Vector3 currLoc = controller.transform.position;
+        float distanceToFinish = (finish - currLoc).magnitude;
+        if (distanceToFinish < .1f)
+        {
+            return true;
+        }
         return false;
     }
 }

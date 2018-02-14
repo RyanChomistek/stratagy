@@ -2,15 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Soldier : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+[System.Serializable]
+public class Soldier {
+    public float speed = 1;
+    public float hitStrength = 1;
+    public float range = 1;
+    public float sightDistance = 1;
 }

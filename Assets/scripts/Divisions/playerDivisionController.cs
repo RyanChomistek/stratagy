@@ -14,7 +14,7 @@ public class playerDivisionController : DivisionController
     void Start()
     {
         ongoingOrder = new EmptyOrder();
-        initOrders();
+        init();
     }
 
     void Update()
@@ -22,21 +22,21 @@ public class playerDivisionController : DivisionController
         doOrders();
     }
 
-    public void init(DivisionController commander, DivisionController general)
+    public void setCommanders(DivisionController commander, DivisionController general)
     {
         base.init(commander);
         generalDivision = general;
     }
 
-    public override void initOrders()
+    public override void init()
     {
         possibleOrders.Add(new Move(this, generalDivision, new Vector3()));
     }
 
-    public override DivisionController createChild()
+    public override DivisionController createChild(List<Soldier> soldiersForChild)
     {
-        playerDivisionController child = (playerDivisionController) base.createChild();
-        child.init(this, generalDivision);
+        playerDivisionController child = (playerDivisionController) base.createChild(soldiersForChild);
+        child.setCommanders(this, generalDivision);
 
         return child;
     }
