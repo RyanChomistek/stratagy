@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Order {
     public DivisionController controller;
+    public DivisionController commanderSendingOrder;
 
     public virtual void start() { }
     public virtual void pause() { }

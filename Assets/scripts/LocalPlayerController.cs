@@ -35,8 +35,6 @@ public class LocalPlayerController : MonoBehaviour {
         else
         {
             UIResponse(divisionController);
-            //responseToUI(divisionController);
         }
-
     }
 }
