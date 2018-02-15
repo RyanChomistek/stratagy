@@ -10,25 +10,25 @@ public class OrderDisplayManager : MonoBehaviour {
     [SerializeField]
     GameObject orderPrefab;
 
-    public void addOrderSet(List<Order> orders)
+    public void AddOrderSet(List<Order> orders)
     {
         foreach(Order order in orders)
         {
             string name = order.GetType().Name;
             GameObject temp = Instantiate(orderPrefab);
             temp.transform.GetChild(0).GetComponent<Text>().text = name;
-            temp.GetComponent<Button>().onClick.AddListener(delegate { onOrderClicked(order); });
-            addToDisplay(temp);
+            temp.GetComponent<Button>().onClick.AddListener(delegate { OnOrderClicked(order); });
+            AddToDisplay(temp);
         }
     }
 
-    void addToDisplay(GameObject order)
+    void AddToDisplay(GameObject order)
     {
         order.transform.SetParent(displays[displayedOrders.Count % displays.Count].transform);
         displayedOrders.Add(order);
     }
 
-    public void clearOrders()
+    public void ClearOrders()
     {
         foreach(GameObject order in displayedOrders)
         {
@@ -37,9 +37,9 @@ public class OrderDisplayManager : MonoBehaviour {
         displayedOrders.Clear();
     }
 
-    public void onOrderClicked(Order order)
+    public void OnOrderClicked(Order order)
     {
-        order.onClickedInUI();
+        order.OnClickedInUI();
     }
 
     void Start()

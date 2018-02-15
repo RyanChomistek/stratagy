@@ -29,8 +29,8 @@ public class LocalPlayerController : MonoBehaviour {
         {
             selected = divisionController;
             //bing up order ui
-            OrderDisplayManager.instance.clearOrders();
-            OrderDisplayManager.instance.addOrderSet(selected.possibleOrders);
+            OrderDisplayManager.instance.ClearOrders();
+            OrderDisplayManager.instance.AddOrderSet(selected.possibleOrders);
         }
         else
         {

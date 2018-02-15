@@ -354,6 +354,11 @@ Prefab:
       propertyPath: soldiers.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114925859727801028, guid: 754b3a638a5e22e47975a49916e55e1b,
+        type: 2}
+      propertyPath: subordinates.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4544873818109446, guid: 754b3a638a5e22e47975a49916e55e1b, type: 2}
       propertyPath: m_LocalPosition.x
       value: 2.81
@@ -424,6 +429,27 @@ Prefab:
       propertyPath: soldiers.Array.data[2].speed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114925859727801028, guid: 754b3a638a5e22e47975a49916e55e1b,
+        type: 2}
+      propertyPath: divisonPrefab
+      value: 
+      objectReference: {fileID: 1008069056940716, guid: 754b3a638a5e22e47975a49916e55e1b,
+        type: 2}
+    - target: {fileID: 114925859727801028, guid: 754b3a638a5e22e47975a49916e55e1b,
+        type: 2}
+      propertyPath: soldiers.Array.data[0].sightDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114925859727801028, guid: 754b3a638a5e22e47975a49916e55e1b,
+        type: 2}
+      propertyPath: soldiers.Array.data[1].sightDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114925859727801028, guid: 754b3a638a5e22e47975a49916e55e1b,
+        type: 2}
+      propertyPath: soldiers.Array.data[2].sightDistance
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 754b3a638a5e22e47975a49916e55e1b, type: 2}
   m_IsPrefabParent: 0
@@ -437,6 +463,7 @@ GameObject:
   - component: {fileID: 783092313}
   - component: {fileID: 783092312}
   - component: {fileID: 783092314}
+  - component: {fileID: 783092315}
   m_Layer: 0
   m_Name: gameManager
   m_TagString: Untagged
@@ -457,6 +484,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   localPlayer: {fileID: 1631957050}
   AIs: []
+  generals:
+  - {fileID: 2071703346}
+  allDivisions: []
 --- !u!4 &783092313
 Transform:
   m_ObjectHideFlags: 0
@@ -481,6 +511,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf8f270b9d69a7942bea83fd0def1f97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &783092315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 783092311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee53bf90a8ddf2146a3251194452e48b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerDivision: {fileID: 2071703346}
 --- !u!1 &793867399 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1008069056940716, guid: 754b3a638a5e22e47975a49916e55e1b,
@@ -1150,8 +1192,8 @@ Prefab:
     m_Modifications:
     - target: {fileID: 114925859727801028, guid: 754b3a638a5e22e47975a49916e55e1b,
         type: 2}
-      propertyPath: soldiers.Array.size
-      value: 4
+      propertyPath: subordinates.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4544873818109446, guid: 754b3a638a5e22e47975a49916e55e1b, type: 2}
       propertyPath: m_LocalPosition.x
@@ -1192,23 +1234,33 @@ Prefab:
       objectReference: {fileID: 793867401}
     - target: {fileID: 114925859727801028, guid: 754b3a638a5e22e47975a49916e55e1b,
         type: 2}
-      propertyPath: soldiers.Array.data[0].speed
-      value: 1
+      propertyPath: divisonPrefab
+      value: 
+      objectReference: {fileID: 1008069056940716, guid: 754b3a638a5e22e47975a49916e55e1b,
+        type: 2}
+    - target: {fileID: 114925859727801028, guid: 754b3a638a5e22e47975a49916e55e1b,
+        type: 2}
+      propertyPath: soldiers.Array.data[0].sightDistance
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114925859727801028, guid: 754b3a638a5e22e47975a49916e55e1b,
         type: 2}
-      propertyPath: soldiers.Array.data[1].speed
-      value: 1
+      propertyPath: soldiers.Array.data[1].sightDistance
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114925859727801028, guid: 754b3a638a5e22e47975a49916e55e1b,
         type: 2}
-      propertyPath: soldiers.Array.data[2].speed
-      value: 1
+      propertyPath: soldiers.Array.data[2].sightDistance
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114925859727801028, guid: 754b3a638a5e22e47975a49916e55e1b,
         type: 2}
-      propertyPath: soldiers.Array.data[3].speed
-      value: 1
+      propertyPath: soldiers.Array.data[3].sightDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008069056940716, guid: 754b3a638a5e22e47975a49916e55e1b, type: 2}
+      propertyPath: m_Name
+      value: mainPlayerDivision
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 754b3a638a5e22e47975a49916e55e1b, type: 2}

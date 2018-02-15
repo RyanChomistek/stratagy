@@ -6,37 +6,39 @@ public class playerDivisionController : DivisionController
 {
     public DivisionController generalDivision;
 
-    public void select()
+    public void Select()
     {
         GameManager.instance.localPlayer.select(this);
     }
 
     void Start()
     {
-        ongoingOrder = new EmptyOrder();
-        init();
+        Init();
     }
 
     void Update()
     {
-        doOrders();
+        OnUpdate();
     }
 
-    public void setCommanders(DivisionController commander, DivisionController general)
+    public void SetCommanders(DivisionController commander, DivisionController general)
     {
-        base.init(commander);
+        base.Init(commander);
         generalDivision = general;
     }
 
-    public override void init()
+    public override void Init()
     {
         possibleOrders.Add(new Move(this, generalDivision, new Vector3()));
+        GameManager.instance.RefreshAllDivisons();
+        ongoingOrder = new EmptyOrder();
+        divisionId = divisionCounter++;
     }
 
-    public override DivisionController createChild(List<Soldier> soldiersForChild)
+    public override DivisionController CreateChild(List<Soldier> soldiersForChild)
     {
-        playerDivisionController child = (playerDivisionController) base.createChild(soldiersForChild);
-        child.setCommanders(this, generalDivision);
+        playerDivisionController child = (playerDivisionController) base.CreateChild(soldiersForChild);
+        child.SetCommanders(this, generalDivision);
 
         return child;
     }

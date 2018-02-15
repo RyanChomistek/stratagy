@@ -7,10 +7,11 @@ public class GameManager : MonoBehaviour {
     public static GameManager instance { get; set; }
     public LocalPlayerController localPlayer;
     public List<AIController> AIs;
+    public List<DivisionController> generals;
+    public List<DivisionController> allDivisions;
 
-
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         instance = this;
 	}
 	
@@ -18,4 +19,15 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void RefreshAllDivisons()
+    {
+        allDivisions = new List<DivisionController>();
+        foreach (DivisionController general in generals)
+        {
+            allDivisions.AddRange(general.GetAllSubordinates());
+        }
+    }
+
+
 }

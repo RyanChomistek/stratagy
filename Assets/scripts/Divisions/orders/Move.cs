@@ -13,7 +13,7 @@ public class Move : Order {
         this.finish = finish;
     }
 
-    public override void start()
+    public override void Start()
     {
         moveToTarget();
     }
@@ -27,19 +27,18 @@ public class Move : Order {
         controller.GetComponent<Rigidbody>().velocity = moveVec;
     }
 
-    public override void pause()
+    public override void Pause()
     {
         
     }
 
-    public override void end()
+    public override void End()
     {
         controller.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
     }
 
-    public override void onClickedInUI()
+    public override void OnClickedInUI()
     {
-        Debug.Log(InputController.instance);
         InputController.instance.registerOnClickCallBack(onClickReturn);
     }
 
@@ -47,16 +46,16 @@ public class Move : Order {
     {
         finish = new Vector3(mousePos.x, mousePos.y);
         //clear ui
-        OrderDisplayManager.instance.clearOrders();
-        commanderSendingOrder.sendOrderTo(controller, this);
+        OrderDisplayManager.instance.ClearOrders();
+        commanderSendingOrder.SendOrderTo(controller, new Move(controller, commanderSendingOrder, finish));
     }
 
-    public override void proceed()
+    public override void Proceed()
     {
 
     }
 
-    public override bool testIfFinished()
+    public override bool TestIfFinished()
     {
         Vector3 currLoc = controller.transform.position;
         float distanceToFinish = (finish - currLoc).magnitude;

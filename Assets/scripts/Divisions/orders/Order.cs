@@ -7,11 +7,11 @@ public class Order {
     public DivisionController controller;
     public DivisionController commanderSendingOrder;
 
-    public virtual void start() { }
-    public virtual void pause() { }
-    public virtual void end() { }
-    public virtual void onClickedInUI() { }
-    public virtual void proceed() { }
-    public virtual bool testIfFinished() { return false; }
+    public virtual void Start() { }
+    public virtual void Pause() { }
+    public virtual void End() { }
+    public virtual void OnClickedInUI() { }
+    public virtual void Proceed() { }
+    public virtual bool TestIfFinished() { return false; }
 
 }
