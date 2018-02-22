@@ -11,7 +11,7 @@ public class DivisionController : MonoBehaviour {
     public List<Soldier> soldiers;
     public float speed = 10;
     public List<Order> possibleOrders;
-
+    public float maxSightDistance = 0;
     public List<Order> orderQueue = new List<Order>();
     public Order ongoingOrder = null;
     public GameObject divisonPrefab;
@@ -19,7 +19,7 @@ public class DivisionController : MonoBehaviour {
     public List<DivisionController> visibleDivisions = new List<DivisionController>();
     //warning anyone who touches this may have to deal with nulls
     public List<RememberedDivision> rememberedDivisions = new List<RememberedDivision>();
-
+    public string name;
     // Use this for initialization
     void Start () {
         Init();
@@ -68,7 +68,7 @@ public class DivisionController : MonoBehaviour {
     void CheckFOW()
     {
         List<DivisionController> allDivisions = GameManager.instance.allDivisions;
-        float maxSightDistance = 0;
+        
         visibleDivisions = new List<DivisionController>();
         //fing the largest sight distance
         foreach (Soldier soldier in soldiers)
@@ -146,6 +146,7 @@ public class DivisionController : MonoBehaviour {
         ongoingOrder = new EmptyOrder();
         GameManager.instance.RefreshAllDivisons();
         divisionId = divisionCounter++;
+        name = "division : " + divisionId;
     }
     
     public void SendOrderTo(DivisionController to, Order order)
