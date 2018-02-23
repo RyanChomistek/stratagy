@@ -10,10 +10,15 @@ public class GameManager : MonoBehaviour {
     public List<DivisionController> generals;
     public List<DivisionController> allDivisions;
 
+    void Awake()
+    {
+        instance = this;
+    }
+
     // Use this for initialization
     void Start () {
         instance = this;
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {

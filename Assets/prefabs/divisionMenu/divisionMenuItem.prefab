@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 222650202949011730}
   - component: {fileID: 114850691670842428}
   - component: {fileID: 114038362022906762}
+  - component: {fileID: 114600549688498314}
   m_Layer: 5
   m_Name: divisionMenuItem
   m_TagString: Untagged
@@ -84,7 +85,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114850691670842428}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114600549688498314}
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114198782914738194
@@ -120,6 +132,24 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Division
+--- !u!114 &114600549688498314
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1022018624784162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d362c1cbb22d3f34ea9859204a65453b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  division:
+    position: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    orders: []
+    soldiers: []
+    divisionId: 0
+    timeStamp: 0
 --- !u!114 &114850691670842428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -183,7 +213,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1022018624784162}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

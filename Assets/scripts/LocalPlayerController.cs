@@ -9,9 +9,13 @@ public class LocalPlayerController : MonoBehaviour {
 
     public DivisionController generalDivision;
 
+    [SerializeField]
     bool UIwaitingForSelection = false;
     public delegate void responseToUI(DivisionController division);
     responseToUI UIResponse;
+
+    public delegate void responseToUIRemembered(RememberedDivision division);
+    responseToUIRemembered UIResponseRememberedDivision;
 
     // Use this for initialization
     void Start () {
@@ -35,6 +39,20 @@ public class LocalPlayerController : MonoBehaviour {
         else
         {
             UIResponse(divisionController);
+        }
+    }
+
+    public void select(RememberedDivision divisionController)
+    {
+        if (!UIwaitingForSelection)
+        {
+            //bing up order ui
+            OrderDisplayManager.instance.ClearOrders();
+            OrderDisplayManager.instance.AddOrderSet(divisionController.possibleOrders);
+        }
+        else
+        {
+            UIResponseRememberedDivision(divisionController);
         }
     }
 }

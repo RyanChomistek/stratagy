@@ -104,7 +104,7 @@ public class DivisionController : MonoBehaviour {
                 else
                 {
                     RememberedDivision rememberedDivisionResult = rememberedDivisions[rememberedDivsionIndex];
-                    Debug.Log(rememberedDivisionResult);
+                    //Debug.Log(rememberedDivisionResult);
                     rememberedDivisions[rememberedDivsionIndex] = division.GenerateRememberedDivision();
                     //rememberedDivisionResult.Update(rememberedDivisionResult);
 
@@ -275,7 +275,7 @@ public class DivisionController : MonoBehaviour {
     {
         RememberedDivision rememberedDivision =
             new RememberedDivision(
-                transform.position, GetComponent<Rigidbody>().velocity, orderQueue, soldiers, divisionId, Time.time);
+                transform.position, GetComponent<Rigidbody>().velocity, orderQueue, soldiers, divisionId, Time.time, possibleOrders);
 
         return rememberedDivision;
     }

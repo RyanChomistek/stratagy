@@ -19,8 +19,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4544873818109446}
-  - component: {fileID: 114925859727801028}
   - component: {fileID: 54247214315089196}
+  - component: {fileID: 114374750862707700}
   m_Layer: 0
   m_Name: playerDivision
   m_TagString: Untagged
@@ -88,7 +88,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1008069056940716}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224392324632601474}
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114925859727801028}
+      - m_Target: {fileID: 114374750862707700}
         m_MethodName: Select
         m_Mode: 1
         m_Arguments:
@@ -162,6 +162,42 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114374750862707700
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1008069056940716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75ce9c564e535c84b91b1b21728cf221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  divisionId: 0
+  commander: {fileID: 0}
+  subordinates: []
+  soldiers:
+  - speed: 1
+    hitStrength: 0
+    range: 0
+    sightDistance: 2
+  - speed: 1
+    hitStrength: 0
+    range: 0
+    sightDistance: 1
+  speed: 10
+  possibleOrders: []
+  maxSightDistance: 0
+  orderQueue: []
+  ongoingOrder:
+    controller: {fileID: 0}
+    commanderSendingOrder: {fileID: 0}
+  divisonPrefab: {fileID: 1008069056940716}
+  display: {fileID: 1607006842516526}
+  visibleDivisions: []
+  rememberedDivisions: []
+  name: 
+  generalDivision: {fileID: 0}
 --- !u!114 &114697153924938254
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -232,46 +268,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &114925859727801028
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1008069056940716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58791d1f44f06be46922b8d44232ccb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  commander: {fileID: 0}
-  subordinates: []
-  soldiers:
-  - speed: 1
-    hitStrength: 0
-    range: 0
-    sightDistance: 0
-  - speed: 1
-    hitStrength: 0
-    range: 0
-    sightDistance: 0
-  - speed: 1
-    hitStrength: 0
-    range: 0
-    sightDistance: 0
-  - speed: 1
-    hitStrength: 0
-    range: 0
-    sightDistance: 0
-  speed: 10
-  possibleOrders: []
-  orderQueue: []
-  ongoingOrder:
-    controller: {fileID: 0}
-    commanderSendingOrder: {fileID: 0}
-  divisonPrefab: {fileID: 1008069056940716}
-  display: {fileID: 1607006842516526}
-  visibleDivisions: []
-  generalDivision: {fileID: 114925859727801028}
 --- !u!114 &114947379738020398
 MonoBehaviour:
   m_ObjectHideFlags: 1

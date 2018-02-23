@@ -6,5 +6,8 @@ public class DivisionMenuItem : MonoBehaviour {
 
     public RememberedDivision division;
 
-    
+    public void OnClick()
+    {
+        DivisionMenuManager.instance.DivisionMenuItemClicked(division);
+    }
 }

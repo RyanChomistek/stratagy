@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerDivisionController : DivisionController
+public class PlayerDivisionController : DivisionController
 {
     public DivisionController generalDivision;
 
@@ -37,7 +37,7 @@ public class playerDivisionController : DivisionController
 
     public override DivisionController CreateChild(List<Soldier> soldiersForChild)
     {
-        playerDivisionController child = (playerDivisionController) base.CreateChild(soldiersForChild);
+        PlayerDivisionController child = (PlayerDivisionController)base.CreateChild(soldiersForChild);
         child.SetCommanders(this, generalDivision);
 
         return child;
