@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
 
 public class DivisionController : MonoBehaviour {
     protected static int divisionCounter = 0;
     public int divisionId;
-    public DivisionController commander;
-    public List<DivisionController> subordinates = new List<DivisionController>();
+    public RememberedDivision commander;
+    public List<RememberedDivision> subordinates = new List<RememberedDivision>();
     public List<Soldier> soldiers;
     public float speed = 10;
     public List<Order> possibleOrders;
@@ -16,10 +17,9 @@ public class DivisionController : MonoBehaviour {
     public Order ongoingOrder = null;
     public GameObject divisonPrefab;
     public GameObject display;
-    public List<DivisionController> visibleDivisions = new List<DivisionController>();
-    //warning anyone who touches this may have to deal with nulls
-    public List<RememberedDivision> rememberedDivisions = new List<RememberedDivision>();
-    public string name;
+    public Dictionary<int, DivisionController> visibleDivisions = new Dictionary<int, DivisionController>();
+    public Dictionary<int, RememberedDivision> rememberedDivisions = new Dictionary<int, RememberedDivision>();
+
     // Use this for initialization
     void Start () {
         Init();
@@ -36,6 +36,7 @@ public class DivisionController : MonoBehaviour {
         UpdateSpeed();
         CheckFOW();
         DoOrders();
+        UpdateDisplay();
     }
 
     public virtual void DoOrders()
@@ -57,7 +58,6 @@ public class DivisionController : MonoBehaviour {
         //grab a new order
         else if (orderQueue.Count > 0)
         {
-            Debug.Log("starting new order");
             ongoingOrder = orderQueue[0];
             orderQueue.RemoveAt(0);
             ongoingOrder.Start();
@@ -69,7 +69,7 @@ public class DivisionController : MonoBehaviour {
     {
         List<DivisionController> allDivisions = GameManager.instance.allDivisions;
         
-        visibleDivisions = new List<DivisionController>();
+        visibleDivisions = new Dictionary<int, DivisionController>();
         //fing the largest sight distance
         foreach (Soldier soldier in soldiers)
         {
@@ -79,7 +79,7 @@ public class DivisionController : MonoBehaviour {
             }
         }
 
-        //find all of the divisions inside our sight distance
+        //find all of the divisions inside our sight distance and update their remembered position
         foreach(DivisionController division in allDivisions)
         {
             Vector3 end = division.transform.position;
@@ -87,27 +87,18 @@ public class DivisionController : MonoBehaviour {
             float dis = (end - start).magnitude;
             if(dis < maxSightDistance)
             {
-                //Debug.Log(division.name);
-                visibleDivisions.Add(division);
-                //RememberedDivision rememberedDivision = division.GenerateRememberedDivision();
-
-                int rememberedDivsionIndex = 
-                    rememberedDivisions.FindIndex(x => x.divisionId == division.divisionId);
-
-                //RememberedDivision rememberedDivisionResult = rememberedDivisions[rememberedDivsionIndex];
-
-                if (rememberedDivsionIndex == -1)
+                visibleDivisions[division.divisionId] = division;
+                RememberedDivision rememberedDivision;
+                bool hasRemembered = rememberedDivisions.TryGetValue(division.divisionId, out rememberedDivision);
+                if (!hasRemembered)
                 {
-                    RememberedDivision rememberedDivisionResult = division.GenerateRememberedDivision();
-                    rememberedDivisions.Add(rememberedDivisionResult);
+                    rememberedDivision = division.GenerateRememberedDivision();
+                    rememberedDivisions.Add(rememberedDivision.divisionId, rememberedDivision);
                 }
                 else
                 {
-                    RememberedDivision rememberedDivisionResult = rememberedDivisions[rememberedDivsionIndex];
-                    //Debug.Log(rememberedDivisionResult);
-                    rememberedDivisions[rememberedDivsionIndex] = division.GenerateRememberedDivision();
-                    //rememberedDivisionResult.Update(rememberedDivisionResult);
-
+                    rememberedDivision = division.GenerateRememberedDivision();
+                    rememberedDivisions[division.divisionId] = rememberedDivision;
                 }
             }
         }
@@ -133,11 +124,16 @@ public class DivisionController : MonoBehaviour {
         ongoingOrder.Proceed();
     }
 
-    public void Init(DivisionController commander)
+    void UpdateDisplay()
+    {
+        display.GetComponentInChildren<Text>().text = name;
+    }
+
+    public void Init(RememberedDivision commander)
     {
         this.commander = commander;
-        //subordinates = new List<DivisionController>();
         possibleOrders = new List<Order>();
+        name = "division " + divisionId;
     }
 
     public virtual void Init()
@@ -149,10 +145,10 @@ public class DivisionController : MonoBehaviour {
         name = "division : " + divisionId;
     }
     
-    public void SendOrderTo(DivisionController to, Order order)
+    public void SendOrderTo(RememberedDivision to, Order order)
     {
         //follow commander tree to get there
-        List<DivisionController> pathToDivision = FindDivision(this, to, new List<DivisionController>());
+        List<RememberedDivision> pathToDivision = FindDivisionInSubordinates(GenerateRememberedDivision(), to, new List<RememberedDivision>());
         //if path is only size one, were at where the order needs to go
         if(pathToDivision.Count == 1)
         {
@@ -165,7 +161,7 @@ public class DivisionController : MonoBehaviour {
         SendMessenger(pathToDivision[1], order);
     }
 
-    public void SendMessenger(DivisionController to, Order order)
+    public void SendMessenger(RememberedDivision to, Order order)
     {
         //create a new division
         //todo make the messenger descesion smart
@@ -177,34 +173,38 @@ public class DivisionController : MonoBehaviour {
         List<Order> orders = new List<Order>();
         orders.Add(order);
         //todo discover location of to
+        messenger.ReceiveOrder(new FindDivision(messenger, this, to));
         messenger.ReceiveOrder(new SendMessage(messenger, this, orders, to));
+        //messenger.ReceiveOrder(new FindDivision(messenger, this, messenger));
+       // messenger.ReceiveOrder
     }
 
     public virtual DivisionController CreateChild(List<Soldier> soldiersForChild)
     {
         GameObject newDivision = Instantiate(divisonPrefab);
         DivisionController newController = newDivision.GetComponent<DivisionController>();
-        newController.Init(this);
+        newController.Init(GenerateRememberedDivision());
         newController.soldiers = soldiersForChild;
         newDivision.transform.position = this.transform.position;
         newDivision.transform.rotation = this.transform.rotation;
-        subordinates.Add(newController);
+        subordinates.Add(newController.GenerateRememberedDivision());
         GameManager.instance.RefreshAllDivisons();
         return newController;
     }
 
-    public List<DivisionController> FindDivision(DivisionController start, DivisionController end, List<DivisionController> prev_)
+    public List<RememberedDivision> FindDivisionInSubordinates(RememberedDivision start, RememberedDivision end, List<RememberedDivision> prev_)
     {
-        List<DivisionController> prev = new List<DivisionController>(prev_);
+        List<RememberedDivision> prev = new List<RememberedDivision>(prev_);
+        //RememberedDivision rememberedStart = start.GenerateRememberedDivision();
         prev.Add(start);
-        if (start == end)
+        if (start.divisionId == end.divisionId)
         {
             return prev;
         }
 
-        foreach(DivisionController division in start.subordinates)
+        foreach(RememberedDivision division in start.subordinates)
         {
-            List<DivisionController> temp = FindDivision(division, end, prev);
+            List<RememberedDivision> temp = FindDivisionInSubordinates(division, end, prev);
             if(temp != null)
             {
                 return temp;
@@ -240,11 +240,11 @@ public class DivisionController : MonoBehaviour {
         troops.Clear();
     }
 
-    public List<DivisionController> GetAllSubordinates()
+    public List<RememberedDivision> GetAllSubordinates()
     {
-        List<DivisionController> allSubordinates = new List<DivisionController>();
-        allSubordinates.Add(this);
-        foreach(DivisionController division in subordinates)
+        List<RememberedDivision> allSubordinates = new List<RememberedDivision>();
+        allSubordinates.Add(GenerateRememberedDivision());
+        foreach(RememberedDivision division in subordinates)
         {
             allSubordinates.AddRange(division.GetAllSubordinates());
         }
@@ -256,27 +256,40 @@ public class DivisionController : MonoBehaviour {
     {
         TransferSoldiers(other.soldiers);
         //kick him out of his commanders subordinate list
-        DivisionController parent = other.commander;
+        RememberedDivision parent = other.commander;
         
         if(parent != null)
         {
-            parent.RemoveSubordinate(other);
+            parent.RemoveSubordinate(other.GenerateRememberedDivision());
         }
         GameObject.Destroy(other.gameObject);
         GameManager.instance.RefreshAllDivisons();
     }
 
-    public void RemoveSubordinate(DivisionController division)
+    public void RemoveSubordinate(RememberedDivision division)
     {
         subordinates.Remove(division);
     }
 
     public RememberedDivision GenerateRememberedDivision()
     {
+        List<RememberedDivision> subordinatesDeep = new List<RememberedDivision>();
+        foreach(RememberedDivision subordinate in subordinates)
+        {
+
+            //subordinatesDeep.Add()
+        }
+
         RememberedDivision rememberedDivision =
             new RememberedDivision(
-                transform.position, GetComponent<Rigidbody>().velocity, orderQueue, soldiers, divisionId, Time.time, possibleOrders);
+                transform.position, GetComponent<Rigidbody>().velocity, orderQueue, soldiers, divisionId, Time.time, possibleOrders, subordinatesDeep, commander);
 
         return rememberedDivision;
+    }
+
+    public bool FindVisibleDivision(int divisionID, out DivisionController division)
+    {
+        division = null;
+        return visibleDivisions.TryGetValue(divisionID, out division);
     }
 }

@@ -47,7 +47,8 @@ public class Move : Order {
         finish = new Vector3(mousePos.x, mousePos.y);
         //clear ui
         OrderDisplayManager.instance.ClearOrders();
-        commanderSendingOrder.SendOrderTo(controller, new Move(controller, commanderSendingOrder, finish));
+        //need to get 
+        commanderSendingOrder.SendOrderTo(controller.GenerateRememberedDivision(), new Move(controller, commanderSendingOrder, finish));
     }
 
     public override void Proceed()

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerDivisionController : DivisionController
 {
-    public DivisionController generalDivision;
+    public RememberedDivision generalDivision;
 
     public void Select()
     {
@@ -21,7 +21,7 @@ public class PlayerDivisionController : DivisionController
         OnUpdate();
     }
 
-    public void SetCommanders(DivisionController commander, DivisionController general)
+    public void SetCommanders(RememberedDivision commander, RememberedDivision general)
     {
         base.Init(commander);
         generalDivision = general;
@@ -29,16 +29,17 @@ public class PlayerDivisionController : DivisionController
 
     public override void Init()
     {
-        possibleOrders.Add(new Move(this, generalDivision, new Vector3()));
+        possibleOrders.Add(new Move(this, LocalPlayerController.instance.generalDivision, new Vector3()));
         GameManager.instance.RefreshAllDivisons();
         ongoingOrder = new EmptyOrder();
         divisionId = divisionCounter++;
+        name = "division : " + divisionId;
     }
 
     public override DivisionController CreateChild(List<Soldier> soldiersForChild)
     {
         PlayerDivisionController child = (PlayerDivisionController)base.CreateChild(soldiersForChild);
-        child.SetCommanders(this, generalDivision);
+        child.SetCommanders(GenerateRememberedDivision(), generalDivision);
 
         return child;
     }

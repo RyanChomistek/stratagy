@@ -175,12 +175,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   divisionId: 0
   commander: {fileID: 0}
-  subordinates: []
+  subordinates:
+  - {fileID: 0}
+  - {fileID: 0}
   soldiers:
   - speed: 1
     hitStrength: 0
     range: 0
-    sightDistance: 2
+    sightDistance: 3
   - speed: 1
     hitStrength: 0
     range: 0
@@ -194,10 +196,7 @@ MonoBehaviour:
     commanderSendingOrder: {fileID: 0}
   divisonPrefab: {fileID: 1008069056940716}
   display: {fileID: 1607006842516526}
-  visibleDivisions: []
-  rememberedDivisions: []
-  name: 
-  generalDivision: {fileID: 0}
+  generalDivision: {fileID: 114374750862707700}
 --- !u!114 &114697153924938254
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -219,11 +218,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 300
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
-    m_MaxSize: 40
+    m_MaxSize: 300
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -354,7 +353,7 @@ RectTransform:
   m_GameObject: {fileID: 1603650120646062}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 224167725138595398}
   m_RootOrder: 0

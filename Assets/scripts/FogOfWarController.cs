@@ -5,23 +5,23 @@ using UnityEngine;
 public class FogOfWarController : MonoBehaviour {
 
     public DivisionController playerDivision;
-
+    public GameObject fowTileParent;
     public GameObject FOWTilePrefab;
     public List<List<GameObject>> FOWTiles;
-    private int height = 10;
-    private int width = 10;
-    int scale = 10;
+    public GameObject fogOfWarQuad;
     // Use this for initialization
-    void Start () {
-        InitFOWTiles(width, height, scale);
+    void Awake () {
+        //InitFOWTiles(width, height, scale);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        /*
         //set displays for every division depending on whether it should be seen
         foreach(DivisionController division in GameManager.instance.allDivisions)
         {
-            division.display.SetActive(playerDivision.visibleDivisions.Contains(division));
+            DivisionController dummy;
+            division.display.SetActive(playerDivision.FindVisibleDivision(division.divisionId, out dummy));
         }
         for(int i = 0; i < height * scale; i++)
         {
@@ -31,6 +31,12 @@ public class FogOfWarController : MonoBehaviour {
                 FOWTiles[i][j].SetActive(dis > playerDivision.maxSightDistance);
             }
         }
+        */
+        Vector3 playerPositionScreen = Camera.main.WorldToScreenPoint(playerDivision.transform.position);
+        Vector3 sightRangeScreen = Camera.main.WorldToScreenPoint(playerDivision.transform.position + new Vector3(playerDivision.maxSightDistance, 0,0));
+        float sightRadiusScreen = (sightRangeScreen - playerPositionScreen).magnitude;
+        fogOfWarQuad.GetComponent<MeshRenderer>().material.SetVector("_PlayerPos",new Vector4(playerPositionScreen.x, playerPositionScreen.y, 0,0));
+        fogOfWarQuad.GetComponent<MeshRenderer>().material.SetFloat("_SightRange", sightRadiusScreen);
     }
 
     public void InitFOWTiles(int h, int w, int s)
@@ -44,8 +50,10 @@ public class FogOfWarController : MonoBehaviour {
             for (int j = 0; j < w * s; j++)
             {
                 GameObject temp = Instantiate(FOWTilePrefab);
+                temp.transform.parent = fowTileParent.transform;
                 temp.transform.position = new Vector3(i/ (float)s, j/ (float)s);
                 temp.transform.localScale = new Vector3(1/(float)s,1/(float)s,1);
+                
                 rowOfTiles.Add(temp);
             }
         }

@@ -27,11 +27,14 @@ public class GameManager : MonoBehaviour {
 
     public void RefreshAllDivisons()
     {
-        allDivisions = new List<DivisionController>();
+        allDivisions = new List<DivisionController>(GameObject.FindObjectsOfType<DivisionController>());
+     
+        /*
         foreach (DivisionController general in generals)
         {
             allDivisions.AddRange(general.GetAllSubordinates());
         }
+        */
     }
 
 

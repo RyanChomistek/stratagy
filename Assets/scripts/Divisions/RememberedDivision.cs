@@ -9,11 +9,14 @@ public class RememberedDivision {
     public List<Order> orderQueue;
     public List<Order> possibleOrders;
     public List<Soldier> soldiers;
+    public List<RememberedDivision> subordinates;
+    public RememberedDivision commander;
     public int divisionId;
     public float timeStamp;
 
     public RememberedDivision(Vector3 position, Vector3 velocity, List<Order> orders,
-        List<Soldier> soldiers, int divisionId, float timeStamp, List<Order> possibleOrders)
+        List<Soldier> soldiers, int divisionId, float timeStamp, 
+        List<Order> possibleOrders, List<RememberedDivision> subordinates, RememberedDivision commander)
     {
         this.position = position;
         this.velocity = velocity;
@@ -22,6 +25,8 @@ public class RememberedDivision {
         this.divisionId = divisionId;
         this.timeStamp = timeStamp;
         this.possibleOrders = possibleOrders;
+        this.subordinates = subordinates;
+        this.commander = commander;
     }
 
     public void Update(RememberedDivision division)
@@ -33,6 +38,25 @@ public class RememberedDivision {
         this.divisionId = division.divisionId;
         this.timeStamp = division.timeStamp;
         this.possibleOrders = division.possibleOrders;
+        this.subordinates = division.subordinates;
+        this.commander = division.commander;
+    }
+
+    public List<RememberedDivision> GetAllSubordinates()
+    {
+        List<RememberedDivision> allSubordinates = new List<RememberedDivision>();
+        allSubordinates.Add(this);
+        foreach (RememberedDivision division in subordinates)
+        {
+            allSubordinates.AddRange(division.GetAllSubordinates());
+        }
+
+        return allSubordinates;
+    }
+
+    public void RemoveSubordinate(RememberedDivision division)
+    {
+        subordinates.Remove(division);
     }
 
     public override bool Equals(object obj)
