@@ -378,6 +378,8 @@ MonoBehaviour:
   generals:
   - {fileID: 2096903786}
   allDivisions: []
+  gameSpeed: 1
+  isPaused: 0
 --- !u!4 &783092313
 Transform:
   m_ObjectHideFlags: 0

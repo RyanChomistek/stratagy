@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour {
     public List<AIController> AIs;
     public List<DivisionController> generals;
     public List<DivisionController> allDivisions;
+    public float gameSpeed = 1;
+    public bool isPaused = false;
 
     void Awake()
     {

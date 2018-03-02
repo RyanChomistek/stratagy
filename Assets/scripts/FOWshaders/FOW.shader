@@ -10,12 +10,15 @@ Shader "FOW" {
     Properties {
         _PlayerPos ("PlayerPos", Vector) = (0,0,0,1)
 		_SightRange("Sight Range", Float) = 1
-		_MainTex("Texture", 2D) = "white" { }
+		_MainTex("Texture", 2D) = "black" { }
 		_Color("Main Color", Color) = (1,1,1,0.5)
     }
     SubShader {
-		Tags{ "RenderType" = "Transparent" "Queue" = "Transparent" }
+		//Tags{ "RenderType" = "Transparent" "Queue" = "Transparent" }
+		Tags{ "Queue" = "AlphaTest" "RenderType" = "TransparentCutout" "IgnoreProjector" = "True" }
         Pass {
+
+		AlphaToMask On
 
 		CGPROGRAM
 		#pragma vertex vert
@@ -48,15 +51,21 @@ Shader "FOW" {
 		fixed4 frag(v2f i) : SV_Target
 		{
 			fixed4 texcol = tex2D(_MainTex, i.uv);
+			float4 dis_vec = i.pos - _PlayerPos;
+			float dis = length(dis_vec);
+			float dis_from_sight = abs(dis - _SightRange);
+			float4 col = texcol * _Color;// *(dis_from_sight / 1000);
+			col.a = .5;
+			//col.a = 1;
 			
-			float dis = length(i.pos - _PlayerPos);
-			float4 col = texcol * _Color;
 			if (dis < _SightRange)
 			{
 				col = Vector(0, 0, 0, 0);
 				col.a = 0;
 			}
-			clip(col.a - 255.0 / 255.0);
+			
+			//clip(col.a - 100.0 / 255.0);
+			//clip(length(col) - .25);
 			return col;
 		}
 		ENDCG

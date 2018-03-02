@@ -35,6 +35,7 @@ public class FogOfWarController : MonoBehaviour {
         Vector3 playerPositionScreen = Camera.main.WorldToScreenPoint(playerDivision.transform.position);
         Vector3 sightRangeScreen = Camera.main.WorldToScreenPoint(playerDivision.transform.position + new Vector3(playerDivision.maxSightDistance, 0,0));
         float sightRadiusScreen = (sightRangeScreen - playerPositionScreen).magnitude;
+        //Debug.Log(sightRadiusScreen / playerDivision.maxSightDistance);
         fogOfWarQuad.GetComponent<MeshRenderer>().material.SetVector("_PlayerPos",new Vector4(playerPositionScreen.x, playerPositionScreen.y, 0,0));
         fogOfWarQuad.GetComponent<MeshRenderer>().material.SetFloat("_SightRange", sightRadiusScreen);
     }

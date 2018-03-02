@@ -41,8 +41,11 @@ public class DivisionController : MonoBehaviour {
 
     public virtual void DoOrders()
     {
-        //Debug.Log(ongoingOrder.GetType());
-        if (ongoingOrder.GetType() != typeof(EmptyOrder))
+        if(GameManager.instance.isPaused)
+        {
+            ongoingOrder.Pause();
+        }
+        else if (ongoingOrder.GetType() != typeof(EmptyOrder))
         {
             //if we are finished stop
             if (ongoingOrder.TestIfFinished())

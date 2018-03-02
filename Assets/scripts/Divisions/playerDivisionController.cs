@@ -30,6 +30,7 @@ public class PlayerDivisionController : DivisionController
     public override void Init()
     {
         possibleOrders.Add(new Move(this, LocalPlayerController.instance.generalDivision, new Vector3()));
+        possibleOrders.Add(new SplitDivision(this, null));
         GameManager.instance.RefreshAllDivisons();
         ongoingOrder = new EmptyOrder();
         divisionId = divisionCounter++;

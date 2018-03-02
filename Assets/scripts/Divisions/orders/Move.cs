@@ -24,12 +24,12 @@ public class Move : Order {
         Vector3 dir = (finish - currLoc).normalized;
         Vector3 moveVec = dir * controller.speed;
         //set start moving twords finish
-        controller.GetComponent<Rigidbody>().velocity = moveVec;
+        controller.GetComponent<Rigidbody>().velocity = moveVec * GameManager.instance.gameSpeed;
     }
 
     public override void Pause()
     {
-        
+        controller.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
     }
 
     public override void End()

@@ -13,5 +13,4 @@ public class Order {
     public virtual void OnClickedInUI() { }
     public virtual void Proceed() { }
     public virtual bool TestIfFinished() { return false; }
-
 }
