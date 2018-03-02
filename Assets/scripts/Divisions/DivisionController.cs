@@ -295,4 +295,26 @@ public class DivisionController : MonoBehaviour {
         division = null;
         return visibleDivisions.TryGetValue(divisionID, out division);
     }
+
+    public Dictionary<SoldierType, List<Soldier>> SplitSoldiersIntoTypes()
+    {
+        Dictionary<SoldierType, List<Soldier>> soldiersSplit = new Dictionary<SoldierType, List<Soldier>>();
+
+        foreach(Soldier soldier in soldiers)
+        {
+            List<Soldier> soldiersInThisType;
+            if(soldiersSplit.TryGetValue(soldier.type, out soldiersInThisType))
+            {
+                soldiersInThisType.Add(soldier);
+            }
+            else
+            {
+                soldiersInThisType = new List<Soldier>();
+                soldiersInThisType.Add(soldier);
+                soldiersSplit.Add(soldier.type, soldiersInThisType);
+            }
+        }
+
+        return soldiersSplit;
+    }
 }

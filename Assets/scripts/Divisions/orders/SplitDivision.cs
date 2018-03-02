@@ -38,6 +38,9 @@ public class SplitDivision : Order {
     public override void OnClickedInUI()
     {
         //bing up ui to split choose what units to split
+        GameObject splitMenu = OrderPrefabManager.Instantiate(OrderPrefabManager.instance.prefabs["DivisionSplitMenu"]);
+        splitMenu.transform.SetParent(OrderPrefabManager.instance.mainCanvas.transform, false);
+        splitMenu.GetComponent<DivisionSplitMenu>().Setup(controller);
         //regester a func as a callback
         //send the order
     }

@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
     public List<DivisionController> allDivisions;
     public float gameSpeed = 1;
     public bool isPaused = false;
+    public bool debug = false;
 
     void Awake()
     {

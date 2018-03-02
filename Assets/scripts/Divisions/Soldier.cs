@@ -14,4 +14,13 @@ public class Soldier {
     public float range = 1;
     public float sightDistance = 1;
     public SoldierType type = SoldierType.Melee;
+
+    public Soldier(float speed, float hitStrength, float range, float sightDistance, SoldierType type)
+    {
+        this.speed = speed;
+        this.hitStrength = hitStrength;
+        this.range = range;
+        this.sightDistance = sightDistance;
+        this.type = type;
+    }
 }

@@ -355,6 +355,7 @@ GameObject:
   - component: {fileID: 783092312}
   - component: {fileID: 783092314}
   - component: {fileID: 783092315}
+  - component: {fileID: 783092316}
   m_Layer: 0
   m_Name: gameManager
   m_TagString: Untagged
@@ -380,6 +381,7 @@ MonoBehaviour:
   allDivisions: []
   gameSpeed: 1
   isPaused: 0
+  debug: 0
 --- !u!4 &783092313
 Transform:
   m_ObjectHideFlags: 0
@@ -420,6 +422,23 @@ MonoBehaviour:
   FOWTilePrefab: {fileID: 1983961932544116, guid: e6e043a47be6bdc42adc2af109bae1d0,
     type: 2}
   fogOfWarQuad: {fileID: 1607293312}
+--- !u!114 &783092316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 783092311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ab2c2af29fed024697f18956d2c740e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsInput:
+  - prefab: {fileID: 1542968105298522, guid: d6e89d5563e80574a9900845458af7d3, type: 2}
+    identifier: DivisionSplitMenu
+  - prefab: {fileID: 1966711029536132, guid: 9201e9cfe2f78af46ae66d99e2e62050, type: 2}
+    identifier: UnitToSplitCard
+  mainCanvas: {fileID: 1556707573}
 --- !u!1 &828350961
 GameObject:
   m_ObjectHideFlags: 0
@@ -1464,6 +1483,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 114374750862707700, guid: 754b3a638a5e22e47975a49916e55e1b,
         type: 2}
+      propertyPath: soldiers.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114374750862707700, guid: 754b3a638a5e22e47975a49916e55e1b,
+        type: 2}
       propertyPath: subordinates.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -1513,6 +1537,56 @@ Prefab:
       propertyPath: subordinates.Array.data[1]
       value: 
       objectReference: {fileID: 1650629348}
+    - target: {fileID: 114374750862707700, guid: 754b3a638a5e22e47975a49916e55e1b,
+        type: 2}
+      propertyPath: soldiers.Array.data[2].speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114374750862707700, guid: 754b3a638a5e22e47975a49916e55e1b,
+        type: 2}
+      propertyPath: soldiers.Array.data[2].sightDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114374750862707700, guid: 754b3a638a5e22e47975a49916e55e1b,
+        type: 2}
+      propertyPath: soldiers.Array.data[3].speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114374750862707700, guid: 754b3a638a5e22e47975a49916e55e1b,
+        type: 2}
+      propertyPath: soldiers.Array.data[3].sightDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114374750862707700, guid: 754b3a638a5e22e47975a49916e55e1b,
+        type: 2}
+      propertyPath: soldiers.Array.data[2].hitStrength
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114374750862707700, guid: 754b3a638a5e22e47975a49916e55e1b,
+        type: 2}
+      propertyPath: soldiers.Array.data[2].range
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114374750862707700, guid: 754b3a638a5e22e47975a49916e55e1b,
+        type: 2}
+      propertyPath: soldiers.Array.data[2].type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114374750862707700, guid: 754b3a638a5e22e47975a49916e55e1b,
+        type: 2}
+      propertyPath: soldiers.Array.data[3].hitStrength
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114374750862707700, guid: 754b3a638a5e22e47975a49916e55e1b,
+        type: 2}
+      propertyPath: soldiers.Array.data[3].range
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114374750862707700, guid: 754b3a638a5e22e47975a49916e55e1b,
+        type: 2}
+      propertyPath: soldiers.Array.data[3].type
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 754b3a638a5e22e47975a49916e55e1b, type: 2}
   m_IsPrefabParent: 0
